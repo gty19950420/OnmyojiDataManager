@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -90,7 +90,7 @@
         },
         created () {
             var _this = this
-            getJSON("./database/yyx_guild_snapshot_20190901090309_15005_6814.json").then(function (res) {
+            getJSON("./database/yyx_guild_snapshot_20190901164824_15005_6814.json").then(function (res) {
                 _this.tableData = res.data.members || []
                 document.title = res.timestamp
             }, function (error) {
