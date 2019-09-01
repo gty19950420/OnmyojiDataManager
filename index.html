@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>2019-08-31</title>
+    <title></title>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
@@ -89,8 +89,9 @@
             tableData: []
         },
         created () {
-            getJSON("./database/yyx_guild_snapshot_20190901090309_15005_6814.json").then(function (data) {
-                console.log(data)
+            getJSON("./database/yyx_guild_snapshot_20190901090309_15005_6814.json").then(function (res) {
+                this.tableData = res.data.members
+                document.title = res.timestamp
             }, function (error) {
                 // console.error('err', error);
             });
