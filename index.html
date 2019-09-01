@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2019-08-31</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .el-table .cell {
+            font-size: 12px;
+            line-height: 1.2;
+        }   
+        #app {
+            box-sizing: border-box;
+            position: relative;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <el-table :data="tableData" height="100%" stripe border style="width: 100%;height: 100%;" :default-sort="{prop: 'weekly_feats', order: 'descending'}">
+            <el-table-column prop="name" label="昵称" fixed>
+            </el-table-column>
+            <el-table-column label="职位">
+                <span slot-scope="scope">{{ scope.row.position == 'Leader' ? "会长" : scope.row.position == 'Officer' ? "副会长" : "成员" }}</span>
+            </el-table-column>
+            <el-table-column prop="level" label="等级" sortable :sort-orders="['descending','ascending']">
+            </el-table-column>
+            <el-table-column prop="weekly_feats" label="本周功勋" sortable :sort-orders="['descending','ascending']">
+            </el-table-column>
+            <el-table-column prop="total_feats" label="累计功勋" sortable :sort-orders="['descending','ascending']">
+            </el-table-column>
+            <el-table-column prop="pvp_score" label="斗技积分" sortable :sort-orders="['descending','ascending']">
+            </el-table-column>
+            <el-table-column prop="medals" label="累计勋章" sortable :sort-orders="['descending','ascending']">
+            </el-table-column>
+            <!-- <el-table-column prop="donate_times" label="赠送次数" sortable :sort-orders="['descending','ascending']">
+                </el-table-column>
+                <el-table-column prop="receive_times" label="受赠次数" sortable :sort-orders="['descending','ascending']"> -->
+            </el-table-column>
+            <el-table-column prop="task_finished_day" label="今日寮任务完成数" sortable :sort-orders="['descending','ascending']">
+            </el-table-column>
+            <el-table-column prop="task_finished_week" label="本周寮任务完成数" sortable :sort-orders="['descending','ascending']">
+            </el-table-column>
+            <el-table-column prop="dg_times" label="道馆完成次数" sortable :sort-orders="['descending','ascending']">
+            </el-table-column>
+        </el-table>
+    </div>
+</body>
+<script>
+    const getJSON = function (url) {
+        const promise = new Promise(function (resolve, reject) {
+            const handler = function () {
+                if (this.readyState !== 4) {
+                    return;
+                }
+                if (this.status === 200) {
+                    resolve(this.response);
+                } else {
+                    reject(new Error(this.statusText));
+                }
+            };
+            const client = new XMLHttpRequest();
+            client.open("GET", url);
+            client.onreadystatechange = handler;
+            client.responseType = "json";
+            client.setRequestHeader("Accept", "application/json");
+            client.send();
+
+        });
+        return promise;
+    };
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            tableData: []
+        },
+        created () {
+            getJSON("./database/yyx_guild_snapshot_20190901090309_15005_6814.json").then(function (data) {
+                console.log(data)
+            }, function (error) {
+                // console.error('err', error);
+            });
+        },
+        methods: {
+
+        },
+        computed: {
+
+        },
+        watch: {
+
+        }
+    })
+</script>
+</html>
