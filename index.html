@@ -31,7 +31,7 @@
 </head>
 <body>
     <div id="app">
-        <el-table :data="tableData" height="100%" stripe border style="width: 100%;height: 100%;" :default-sort="{prop: 'weekly_feats', order: 'descending'}">
+        <el-table v-loading="loading" :data="tableData" height="100%" stripe border style="width: 100%;height: 100%;" :default-sort="{prop: 'weekly_feats', order: 'descending'}">
             <el-table-column prop="name" label="昵称" fixed>
             </el-table-column>
             <el-table-column label="职位">
@@ -86,12 +86,14 @@
     var vm = new Vue({
         el: '#app',
         data: {
-            tableData: []
+            tableData: [],
+            loading: true
         },
         created () {
             var _this = this
             getJSON("./database/yyx_guild_snapshot_20190901164824_15005_6814.json").then(function (res) {
                 _this.tableData = res.data.members || []
+                _this.loading = false
                 document.title = res.timestamp
             }, function (error) {
                 // console.error('err', error);
