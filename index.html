@@ -88,9 +88,10 @@
         data: {
             tableData: []
         },
-        mounted () {
+        created () {
+            var _this = this
             getJSON("./database/yyx_guild_snapshot_20190901090309_15005_6814.json").then(function (res) {
-                this.tableData = res.data.members
+                _this.tableData = res.data.members || []
                 document.title = res.timestamp
             }, function (error) {
                 // console.error('err', error);
