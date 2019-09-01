@@ -88,7 +88,7 @@
         data: {
             tableData: []
         },
-        created () {
+        mounted () {
             getJSON("./database/yyx_guild_snapshot_20190901090309_15005_6814.json").then(function (res) {
                 this.tableData = res.data.members
                 document.title = res.timestamp
